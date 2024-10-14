@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prosto4elick - О музыканте</title>
+    
+</head>
+<body>
+    <header>
+        <h1>Prosto4elick</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">О музыканте</a></li>
+                <li><a href="#music">Музыка</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>О музыканте</h2>
+        <p>Prosto4elick - музыкант, фонкер, пишу не только фонк, но и другие стили, смешивая различные жанры. </p>
+        <img src="musician.jpg" alt="Prosto4elick" />
+    </section>
+
+    <section id="music">
+    <h2>Ссылки</h2>
+    <p>Слушайте последние треки Prosto4elick в Telegram канале</p>
+    <ul>
+        <li><a href="https://t.me/prosto4444elick" target="_blank">ТГ</a></li>
+
+    </ul>
+</section>
+
+    <section id="contact">
+        <h2>Связь</h2>
+        <p>Связаться можно:</p>
+        <ul>
+            <li><a href="https://t.me/Chellll4ick" target="_blank">Лс ТГ</a></li>
+
+            <li><a href="prosto4elick52@gmail.com" target="_blank">Почта</a></li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Prosto4elick. Все права защищены. (хз)</p>
+    </footer>
+</body>
+</html>

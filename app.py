@@ -5,7 +5,7 @@ import random
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import Command, CommandObject
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, FSInputFile
-from aiohttp import web  # Важно для анти-сна
+from aiohttp import web
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
@@ -16,23 +16,19 @@ CHANNEL_ID = -1001926184793
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-
 # --- ВЕБ-СЕРВЕР ДЛЯ RENDER (АНТИ-СОН) ---
 async def handle(request):
     return web.Response(text="Bot is alive!")
-
 
 async def start_web_server():
     app = web.Application()
     app.router.add_get("/", handle)
     runner = web.AppRunner(app)
     await runner.setup()
-    # Render передает порт в переменную окружения PORT
     port = int(os.environ.get("PORT", 8080))
     site = web.TCPSite(runner, "0.0.0.0", port)
     await site.start()
-    logging.info(f"Веб-сервер запущен на порту {port}")
-
+    logging.info(f"✅ Веб-сервер запущен на порту {port}")
 
 # --- Кнопки ---
 keyboard = InlineKeyboardMarkup(inline_keyboard=[
@@ -48,7 +44,6 @@ price_keyboard = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text="Написать в ЛС 📩", url="https://t.me/prosto4elick")]
 ])
 
-
 # --- Команды ---
 @dp.message(Command("price"))
 async def cmd_price(message: Message):
@@ -61,7 +56,6 @@ async def cmd_price(message: Message):
         "ЛС - @prosto4elick"
     )
     await message.answer(price_text, reply_markup=price_keyboard, parse_mode="Markdown")
-
 
 @dp.message(Command("rate"))
 async def cmd_rate(message: Message, command: CommandObject):
@@ -78,11 +72,9 @@ async def cmd_rate(message: Message, command: CommandObject):
         number = random.randint(1, 10)
         await message.reply(f"🎲 Твоя оценка: **{number}/10**")
 
-
 @dp.message(Command("links"))
 async def send_links_command(message: Message):
     await message.reply("🔗 **Все важные ссылки:**", reply_markup=keyboard, parse_mode="Markdown")
-
 
 # --- Модерация чата ---
 @dp.message(F.new_chat_members)
@@ -94,11 +86,9 @@ async def welcome_and_clean(message: Message):
             reply_markup=keyboard, parse_mode="Markdown"
         )
 
-
 @dp.message(F.left_chat_member)
 async def clean_left_member(message: Message):
     await message.delete()
-
 
 # --- Авто-комменты ---
 @dp.message(F.forward_from_chat.id == CHANNEL_ID)
@@ -114,20 +104,14 @@ async def auto_reply_with_photo(message: Message):
     except Exception as e:
         logging.error(f"Ошибка: {e}")
 
-
 # --- ГЛАВНЫЙ ЗАПУСК ---
 async def main():
     logging.info("🚀 Запуск бота...")
-
-    # Удаляем вебхуки, если они были (на всякий случай)
     await bot.delete_webhook(drop_pending_updates=True)
-
-    # Запускаем веб-сервер и бота параллельно
     await asyncio.gather(
         start_web_server(),
         dp.start_polling(bot)
     )
-
 
 if __name__ == "__main__":
     try:

@@ -139,7 +139,7 @@ async def auto_reply_with_photo(message: Message):
         photo_path = os.path.join(current_dir, "image.png")
         if os.path.exists(photo_path):
             await message.reply_photo(photo=FSInputFile(photo_path),
-                                      caption="👇 **Полезные ссылки и прайс:**",
+                                      caption="Салют! Залетай к нам 🙃",
                                       reply_markup=keyboard)
         else:
             await message.reply("Салют! Залетай к нам 🙃", reply_markup=keyboard)
@@ -164,3 +164,4 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         logging.info("Бот остановлен")
+
